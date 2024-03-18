@@ -33,4 +33,6 @@ This is a Python application for managing student records in a PostgreSQL databa
 8.   exit: Exit the program.
    
 ## Video Demo: 
-5. Link to video Demo: https://youtu.be/aT70X76KcwY
+Note to TA Marker:
+The actual demonstration of the project is presented in the video until the 2 minutes and 33 seconds mark. Following that, the discussion shifts to an explantion of the code.
+5. Link to video Demo: https://youtu.be/aT70X76KcwY 
