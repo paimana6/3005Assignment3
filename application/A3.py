@@ -6,7 +6,7 @@ def create_connection():
     try:
         connection = psycopg2.connect(
             user="postgres",
-            password="password", 
+            password="shhhh", 
             host="localhost",
             port="5432",
             database="test_db"
@@ -19,7 +19,7 @@ def create_connection():
 def get_all_students(connection):
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM students")
+        cursor.execute("SELECT * FROM students ORDER BY student_id")
         students = cursor.fetchall()
         print("All Students:")
         for student in students:
@@ -36,7 +36,7 @@ def add_student(connection, first_name, last_name, email, enrollment_date):
         connection.commit()
         print("Student added successfully.")
     except (Exception, Error) as error:
-        print("Error while adding student to PostgreSQL", error)
+        print("Error while adding student", error)
 
 #  update the email address for a student with the specified student_id
 def update_student_email(connection, student_id, new_email):
@@ -47,7 +47,7 @@ def update_student_email(connection, student_id, new_email):
         connection.commit()
         print("Email updated successfully.")
     except (Exception, Error) as error:
-        print("Error while updating email in PostgreSQL", error)
+        print("Error while updating email", error)
 
 # delete the record of the student with the specified student_id
 def delete_student(connection, student_id):
@@ -58,33 +58,50 @@ def delete_student(connection, student_id):
         connection.commit()
         print("Student deleted successfully.")
     except (Exception, Error) as error:
-        print("Error while deleting student from PostgreSQL", error)
+        print("Error while deleting student", error)
         
         
 # Main
 def main():
-    # Create a connection to the PostgreSQL database
-    connection = create_connection()
-    
+    print("Hello! Welcome to the Student Management System.")
+    while True:
+        # Create a connection to the PostgreSQL database
+        connection = create_connection()
+        
         # If connection successful
-    if connection:
-        # Get and display all students
-        get_all_students(connection)
+        if connection:
+            # Ask the user for the action they want to perform
+            action = input("\nWhat do you want to do? (add/update/delete/getall/exit): ").strip().lower()
+            
+            # Perform the chosen action
+            if action == 'add':
+                first_name = input("Enter first name: ").strip()
+                last_name = input("Enter last name: ").strip()
+                email = input("Enter email: ").strip()
+                enrollment_date = input("Enter enrollment date (YYYY-MM-DD): ").strip()
+                add_student(connection, first_name, last_name, email, enrollment_date)
+            
+            elif action == 'update':
+                student_id = input("Enter student ID to update: ").strip()
+                new_email = input("Enter new email: ").strip()
+                update_student_email(connection, student_id, new_email)
+                
+            elif action == 'delete':
+                student_id = input("Enter student ID to delete: ").strip()
+                delete_student(connection, student_id)
+                
+            elif action == 'getall':
+                get_all_students(connection)
+            
+            elif action == 'exit':
+                print("\nGoodbye!")
+                break  # Exit the loop
+            
+            else:
+                print("\nSorry, I didn't understand that action. Please try again.")
 
-    # Add a new student
-    add_student(connection, 'Billy', 'Bob', 'billy.bob@example.com', '2023-09-11')
-
-    # Update email of a student
-    update_student_email(connection, 1, 'john.doe.updated@example.com')
-
-    # Delete a student
-    delete_student(connection, 2)
-
-    # Get and display all students after modifications
-    get_all_students(connection)
-
-    # Close the connection
-    connection.close()
+            # Close the connection
+            connection.close()
 
 
 if __name__ == "__main__":
