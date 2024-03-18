@@ -31,5 +31,5 @@ This is a Python application for managing student records in a PostgreSQL databa
 		delete: Delete a student record. You'll be asked to input the student ID of the student you want to delete.
 		getall: Retrieve and display all student records.
 		exit: Exit the program.
-##Video Demo: 
-	5. Link to video Demo: https://youtu.be/aT70X76KcwY
+## Video Demo: 
+5. Link to video Demo: https://youtu.be/aT70X76KcwY
