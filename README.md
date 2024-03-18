@@ -22,7 +22,7 @@ This is a Python application for managing student records in a PostgreSQL databa
 3. Run the Python script using the following command:
                                     python3 A3.py
 
-4.Interaction Options:
+## Interaction Options:
 	After running the program, you'll see the message "Hello! Welcome to the Student Management System."
 	You'll be prompted with the question "What do you want to do? (add/update/delete/getall/exit): "
 	Here are the available options:
